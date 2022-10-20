@@ -1,5 +1,7 @@
 <?php
 // config for JeffGreco13/FilamentBreezy
+use Illuminate\Validation\Rules\Password;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -23,7 +25,7 @@ return [
     /*
     | Set an array that's compatible with the Filament Forms rules() method. Rules for required and confirmed are already set. These rules will apply to the My Profile, registration, and password reset forms. To use an instance of the \Illuminate\Validation\Rules\Password::class, see documentation.
     */
-    "password_rules" => ['min:8'],
+    "password_rules" => ['min:8', Password::min(8)->symbols()->mixedCase()->numbers()],
 
     /*
     |--------------------------------------------------------------------------
@@ -74,7 +76,7 @@ return [
     |--------------------------------------------------------------------------
     | Enable or disable registration.
     */
-    "enable_registration" => false,
+    "enable_registration" => true,
     /*
     |--------------------------------------------------------------------------
     | Path to registration Livewire component.
