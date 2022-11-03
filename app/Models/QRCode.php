@@ -45,4 +45,13 @@ class QRCode extends Model
             'b' => $b,
         ];
     }
+
+    public function getContent()
+    {
+        if ($this->type === 'url') {
+            return route('redirect.qrcode', $this->id);
+        } else {
+            return $this->content;
+        }
+    }
 }

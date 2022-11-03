@@ -4,5 +4,5 @@
     ->style($record->style)
     ->eye($record->eye_style)
     ->errorCorrection($record->error_correction_level)
-    ->generate($record->content)
+    ->generate($record->getContent())
 !!}

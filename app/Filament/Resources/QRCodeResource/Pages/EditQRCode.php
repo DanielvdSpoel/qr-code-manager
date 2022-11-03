@@ -28,7 +28,7 @@ class EditQRCode extends EditRecord
                         ->style($this->record->style)
                         ->eye($this->record->eye_style)
                         ->errorCorrection($this->record->error_correction_level)
-                        ->generate($this->record->content, storage_path('app/qr-codes/' . $this->record->id . '.svg'));
+                        ->generate($this->record->getContent(), storage_path('app/qr-codes/' . $this->record->id . '.svg'));
                     return response()->download(storage_path('app/qr-codes/' . $this->record->id . '.svg'));
 
                 })
