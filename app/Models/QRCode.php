@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class QRCode extends Model
 {
 
-    use HasFactory;
+    use HasFactory, Uuids;
 
     protected $table = 'qr_codes';
 
@@ -34,6 +35,7 @@ class QRCode extends Model
             'b' => $b,
         ];
     }
+
     public function getBackgroundColorRGB()
     {
         list($r, $g, $b) = sscanf($this->background_color, "#%02x%02x%02x");
