@@ -14,7 +14,4 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::get('/{code}', function ($code) {
-    $record = \App\Models\QRCode::find($code);
-    dd(Storage::get('public/' . $record->image));
-});
+Route::get('/redirect/{qrcode}', [App\Http\Controllers\RedirectController::class, 'redirect'])->name('redirect.qrcode');
