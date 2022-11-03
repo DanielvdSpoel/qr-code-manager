@@ -31,6 +31,11 @@ class QRCodeResource extends Resource
     protected static ?string $modelLabel = 'QR-code';
     protected static ?string $pluralModelLabel = 'QR-codes';
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->whereBelongsTo(auth()->user());
+    }
+
     public static function getPluralModelLabel(): string
     {
         return 'QR-codes';
