@@ -1,10 +1,7 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\UserResource\RelationManagers;
 
-use App\Filament\Resources\QRCodeResource\Pages;
-use App\Filament\Resources\QRCodeResource\RelationManagers;
-use App\Models\QRCode;
 use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\ColorPicker;
@@ -13,32 +10,25 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput\Mask;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class QRCodeResource extends Resource
+class QRCodesRelationManager extends RelationManager
 {
-    protected static ?string $model = QRCode::class;
+    protected static string $relationship = 'QRCodes';
 
-    protected static ?string $navigationIcon = 'heroicon-o-qrcode';
-
-    protected static ?string $navigationLabel = 'QR-codes';
+    protected static ?string $recordTitleAttribute = 'id';
     protected static ?string $modelLabel = 'QR-code';
     protected static ?string $pluralModelLabel = 'QR-codes';
 
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->whereBelongsTo(auth()->user());
-    }
 
     public static function getPluralModelLabel(): string
     {
         return 'QR-codes';
     }
-
 
     public static function form(Form $form): Form
     {
@@ -121,27 +111,15 @@ class QRCodeResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListQRCodes::route('/'),
-            'create' => Pages\CreateQRCode::route('/create'),
-            'edit' => Pages\EditQRCode::route('/{record}/edit'),
-        ];
     }
 }
