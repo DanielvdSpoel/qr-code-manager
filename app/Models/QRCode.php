@@ -24,4 +24,23 @@ class QRCode extends Model
         'error_correction_level',
         'image',
     ];
+
+    public function getColorRGB()
+    {
+        list($r, $g, $b) = sscanf($this->color, "#%02x%02x%02x");
+        return [
+            'r' => $r,
+            'g' => $g,
+            'b' => $b,
+        ];
+    }
+    public function getBackgroundColorRGB()
+    {
+        list($r, $g, $b) = sscanf($this->background_color, "#%02x%02x%02x");
+        return [
+            'r' => $r,
+            'g' => $g,
+            'b' => $b,
+        ];
+    }
 }
