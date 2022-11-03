@@ -23,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'is_admin',
     ];
 
     /**
@@ -51,6 +52,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function canAccessFilament(): bool
     {
-        return str_ends_with($this->email, '@danielvdspoel.nl') && $this->hasVerifiedEmail();
+        return true;
     }
 }
