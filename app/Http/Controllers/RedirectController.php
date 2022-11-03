@@ -14,7 +14,7 @@ class RedirectController extends Controller
             abort(404);
         }
 
-        //todo implement tracking
+        $QRCode->usages()->create([]);
 
         return redirect($QRCode->content);
     }

@@ -12,6 +12,14 @@ use Filament\Pages\Actions\Action;
 class EditQRCode extends EditRecord
 {
     protected static string $resource = QRCodeResource::class;
+    protected static ?string $title = 'Edit QR-code';
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            QRCodeResource\Widgets\UsageTracker::class,
+        ];
+    }
 
     /**
      * @throws \Exception

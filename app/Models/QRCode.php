@@ -6,10 +6,10 @@ use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class QRCode extends Model
 {
-
     use HasFactory, Uuids;
 
     protected $table = 'qr_codes';
@@ -59,5 +59,10 @@ class QRCode extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function usages(): HasMany
+    {
+        return $this->hasMany(QRCodeUsage::class, 'qr_code_id');
     }
 }

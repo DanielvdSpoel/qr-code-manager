@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\QRCodeResource\Pages;
 use App\Filament\Resources\QRCodeResource\RelationManagers;
+use App\Filament\Resources\QRCodeResource\Widgets\UsageTracker;
 use App\Models\QRCode;
 use Closure;
 use Filament\Forms;
@@ -16,6 +17,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -55,13 +57,13 @@ class QRCodeResource extends Resource
                     ]),
                 Forms\Components\Textarea::make('content')
                     ->required()
-                    ->hidden(fn (Closure $get) => $get('type') !== 'other')
+                    ->hidden(fn(Closure $get) => $get('type') !== 'other')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('content')
                     ->required()
                     ->label('Url')
                     ->url()
-                    ->hidden(fn (Closure $get) => $get('type') !== 'url')
+                    ->hidden(fn(Closure $get) => $get('type') !== 'url')
                     ->maxLength(255),
                 Fieldset::make('Settings')
                     ->schema([
@@ -90,7 +92,7 @@ class QRCodeResource extends Resource
                             ->required()
                             ->default('100')
                             ->suffix('pixels')
-                            ->mask(fn (Mask $mask) => $mask
+                            ->mask(fn(Mask $mask) => $mask
                                 ->numeric()
                                 ->integer() // Disallow decimal numbers.
                                 ->minValue(1) // Set the minimum value that the number can be.
@@ -117,6 +119,12 @@ class QRCodeResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('content')
                     ->searchable(),
+                TextColumn::make('usages_count')
+                    ->counts('usages')
+                    ->label('Usages')
+                    ->sortable(),
+
+
             ])
             ->filters([
                 //
@@ -135,6 +143,14 @@ class QRCodeResource extends Resource
             //
         ];
     }
+
+    public static function getWidgets(): array
+    {
+        return [
+            UsageTracker::class,
+        ];
+    }
+
 
     public static function getPages(): array
     {
