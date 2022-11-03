@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('qr_codes', function (Blueprint $table) {
             $table->id();
             $table->string('content');
+            $table->string('type');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('size');
             $table->string('color');
@@ -23,7 +24,7 @@ return new class extends Migration
             $table->string('style');
             $table->string('eye_style');
             $table->string('error_correction_level');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

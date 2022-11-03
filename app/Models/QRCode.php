@@ -13,6 +13,7 @@ class QRCode extends Model
     protected $table = 'qr_codes';
 
     protected $fillable = [
+        'type',
         'content',
         'user_id',
         'size',
